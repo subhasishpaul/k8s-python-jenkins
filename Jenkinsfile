@@ -13,7 +13,7 @@ pipeline {
                 sh 'docker build -t subhasishpaul/python .'
             }
         }
-        stage('Deploy') {
+        stage('Deploy....') {
             steps {
                 echo 'Deploying application'
             }

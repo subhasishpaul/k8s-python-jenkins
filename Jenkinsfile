@@ -13,9 +13,12 @@ pipeline {
                 bat 'docker build -t subhasishpaul/python .'
             }
         }
-        stage('Deploy....') {
+        stage('Push Docker Image') {
             steps {
-                echo 'Deploying application'
+                withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
+                sh 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
+                }
+                sh 'docker push subhasishpaul/python'
             }
         }
         stage('Sending Email') {

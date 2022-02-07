@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t subhasishpaul/python .'
+                bat 'docker build -t subhasishpaul/python .'
             }
         }
         stage('Deploy....') {

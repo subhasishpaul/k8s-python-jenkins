@@ -5,12 +5,12 @@ pipeline {
         stage('Git clone') {
             steps {
                 echo 'Git Cloning started'
-                echo 'End to end automation including email sending.'
+                git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }
         }
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building application'
+                sh 'docker build -t subhasishpaul/python .'
             }
         }
         stage('Deploy') {

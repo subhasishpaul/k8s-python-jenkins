@@ -28,7 +28,7 @@ pipeline {
             steps {
                 kubernetesDeploy(
                    configs: 'deployment.yaml', 
-                   kubeconfigId: 'KUBERNATES_CONFIG',
+                   kubeconfigId: 'K8S_CLUSTER_CONFIG',
                    enableConfigSubstitution: true
         )
 

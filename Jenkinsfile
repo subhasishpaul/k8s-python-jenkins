@@ -13,6 +13,7 @@ pipeline {
                 bat 'docker build -t subhasishpaul/python .'
             }
         }
+        /**
         stage('Push Docker Image') {
             steps {
                 withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
@@ -21,6 +22,7 @@ pipeline {
                 bat 'docker push subhasishpaul/python'
             }
         }
+        **/
         stage('Sending Email') {
             steps {
                 emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:

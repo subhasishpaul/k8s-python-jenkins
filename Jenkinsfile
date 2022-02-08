@@ -24,6 +24,17 @@ pipeline {
             }
         }
         
+        stage('Deploy To Kuberates Cluster') {
+            steps {
+                kubernetesDeploy(
+                   configs: 'springBootMongo.yml', 
+                   kubeconfigId: 'KUBERNATES_CONFIG',
+                   enableConfigSubstitution: true
+        )
+
+            }
+        }
+        
         stage('Sending Email') {
             steps {
                 emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:

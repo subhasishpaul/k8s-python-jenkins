@@ -16,6 +16,7 @@ ENV FLASK_APP=server.py
 # WORKDIR /work/
 # CMD python -m ptvsd --host 0.0.0.0 --port 5678 --wait --multiprocess -m flask run -h 0.0.0.0 -p 5000
 
+
 ###########START NEW IMAGE: PRODUCTION ###################
 # FROM base as prod
 

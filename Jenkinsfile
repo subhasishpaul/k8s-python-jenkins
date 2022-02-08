@@ -16,9 +16,10 @@ pipeline {
         
         stage('Push Docker Image') {
             steps {
-                withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
+                bat 'docker login -u subhasishpaul -p Anushka@1977
+                /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
                 bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
-                }
+                } **/
                 bat 'docker push subhasishpaul/python'
             }
         }

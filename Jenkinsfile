@@ -24,7 +24,7 @@ pipeline {
             }
         }
         
-        stage('Deploy To Kuberates Cluster') {
+        stage('Deploy To Kuberates Cluster ') {
             steps {
                 kubernetesDeploy(
                    configs: 'kubernetes/deployments/deployment.yaml', 

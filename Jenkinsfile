@@ -1,4 +1,10 @@
 pipeline {
+    environment {
+        imagename = "subhasishpaul/python"
+        registryCredential = 'docker-hub-credentials'
+        dockerImage = ''
+    }
+    
     agent any
 
     stages {
@@ -10,17 +16,23 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t subhasishpaul/python .'
+                docker.build imagename'
             }
         }
         
         stage('Push Docker Image ') {
             steps {
-                bat 'docker login -u subhasishpaul -p Anushka@1977'
-                /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
-                bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
-                } **/
-                bat 'docker push subhasishpaul/python'
+                docker.withRegistry( '', registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+            }
+            }
+        }
+        
+        stage('Remove Unused docker image') {
+            steps{
+                bat "docker rmi $imagename:$BUILD_NUMBER"
+                bat "docker rmi $imagename:latest"
             }
         }
         

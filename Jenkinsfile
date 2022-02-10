@@ -16,7 +16,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                docker.build("subhasishpaul/python:${env.BUILD_ID}")
+                script {
+                    docker.build("subhasishpaul/python:${env.BUILD_ID}")
+                }
             }
         }
         

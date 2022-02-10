@@ -16,16 +16,20 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                docker.build imagename
+                script {
+                    docker.build imagename
+                }
             }
         }
         
         stage('Push Docker Image ') {
             steps {
-                docker.withRegistry( '', registryCredential ) {
-                dockerImage.push("$BUILD_NUMBER")
-                dockerImage.push('latest')
-            }
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
         

@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: subhasishpaul/python:1.0.0
+        image: subhasishpaul/python:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

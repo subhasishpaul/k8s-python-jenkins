@@ -2,7 +2,7 @@ pipeline {
     environment { 
        NAME = "subhasishpaul/python"
        VERSION = "${env.BUILD_ID}"
-       IMAGE = "${NAME}:${VERSION}"
+       pathh = "${NAME}:${VERSION}"
     }
 
     agent any
@@ -11,13 +11,13 @@ pipeline {
         stage('Git clone') {
             steps {
                 echo 'Git Cloning Started ...'
-                echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL}"
+                echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL} - ${pathh}"
                 git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t ${IMAGE} .'
+                bat 'docker build -t ${pathh} .'
             }
         }
         

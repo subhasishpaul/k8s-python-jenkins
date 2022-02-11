@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t ${pathh} .'
+                bat 'docker build -t subhasishpaul/python:66 .'
             }
         }
         

@@ -1,42 +1,27 @@
 pipeline {
-    environment {
-        imagename = "subhasishpaul/python"
-        registryCredential = 'docker-hub-credentials'
-        dockerImage = ''
-    }
-    
     agent any
 
     stages {
         stage('Git clone') {
             steps {
                 echo 'Git Cloning Started ...'
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("subhasishpaul/python:${env.BUILD_ID}")
-                }
+                bat 'docker build -t subhasishpaul/python .'
             }
         }
         
         stage('Push Docker Image ') {
             steps {
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
-        
-        stage('Remove Unused docker image') {
-            steps{
-                bat "docker rmi $imagename:$BUILD_NUMBER"
-                bat "docker rmi $imagename:latest"
+                bat 'docker login -u subhasishpaul -p Anushka@1977'
+                /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
+                bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
+                } **/
+                bat 'docker push subhasishpaul/python'
             }
         }
         
@@ -59,3 +44,4 @@ pipeline {
         
     }
 }
+

@@ -1,4 +1,10 @@
 pipeline {
+    environment { 
+       NAME = "subhasishpaul/python"
+       VERSION = "${env.BUILD_ID}"
+       IMAGE = "${NAME}:${VERSION}"
+    }
+
     agent any
 
     stages {
@@ -11,7 +17,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t subhasishpaul/python:${env.BUILD_ID} .'
+                bat 'docker build -t ${IMAGE} .'
             }
         }
         

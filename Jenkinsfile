@@ -5,13 +5,13 @@ pipeline {
         stage('Git clone') {
             steps {
                 echo 'Git Cloning Started ...'
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL}"
                 git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t subhasishpaul/python .'
+                bat 'docker build -t subhasishpaul/python:${env.BUILD_ID} .'
             }
         }
         
@@ -21,7 +21,7 @@ pipeline {
                 /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
                 bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
                 } **/
-                bat 'docker push subhasishpaul/python'
+                bat 'docker push subhasishpaul/python:${env.BUILD_ID}'
             }
         }
         
@@ -31,7 +31,8 @@ pipeline {
                    configs: 'kubernetes/deployments/deployment.yaml', 
                    kubeconfigId: 'K8S_CLUSTER_CONFIG',
                    enableConfigSubstitution: true
-        )
+                )
+                bat 'kubectl set image kubernetes/deployments/deployment/example-deploy example-app=subhasishpaul/python:${env.BUILD_ID}'
 
             }
         }

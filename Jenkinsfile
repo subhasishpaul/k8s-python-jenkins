@@ -3,7 +3,7 @@ pipeline {
        repo = "subhasishpaul/python"
        ver = "${env.BUILD_ID}"
        image = "${NAME}:${VERSION}"
-        test = 'repo + ":" + ver'
+        test = "subhasishpaul/python:3.0"
     }
 
     agent any

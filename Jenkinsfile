@@ -19,7 +19,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t "${env.repo}" .'
-                def customImage = docker.build("my-image:${env.BUILD_ID}")
+                
             }
         }
         

@@ -3,7 +3,7 @@ pipeline {
        repo = "subhasishpaul/python"
        ver = "${env.BUILD_ID}"
        image = "${NAME}:${VERSION}"
-        test = repo + ":" + ver
+        test = 'repo + ":" + ver'
     }
 
     agent any
@@ -12,14 +12,14 @@ pipeline {
         stage('Git clone') {
             steps {
                 echo 'Git Cloning Started ...'
-                echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL} - ${test}"
+                echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL} - ${env.test}"
                 git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }
         }
         stage('Build Docker Image') {
             steps {
                 
-                bat 'docker build -t test .'
+                bat 'docker build -t ${test} .'
                 
             }
         }
@@ -30,7 +30,7 @@ pipeline {
                 /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
                 bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
                 } **/
-                bat 'docker push repo'
+                bat 'docker push ${repo}'
             }
         }
         

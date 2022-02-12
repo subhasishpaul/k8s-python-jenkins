@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Git clone') {
             steps {
-                echo 'Git Cloning Started ...'
+                echo 'Git Cloning Started .....'
                 echo "Running ${env.BUILD_NUMBER} on ${env.JENKINS_URL} - Image ${env.image} will be uploaded in Docker."
                 git credentialsId: 'GIT_CRED', url: 'https://github.com/subhasishpaul/k8s-python-jenkins.git'
             }

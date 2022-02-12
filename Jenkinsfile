@@ -41,8 +41,6 @@ pipeline {
                    kubeconfigId: 'K8S_CLUSTER_CONFIG',
                    enableConfigSubstitution: true
                 )
-                bat 'kubectl set image kubernetes/deployments/deployment/example-deploy example-app=subhasishpaul/python:${env.BUILD_ID}'
-
             }
         }
         

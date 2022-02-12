@@ -32,7 +32,7 @@ pipeline {
                 bat "docker push ${image}"
             }
         }
-        
+       
         stage('Deploy To Kuberates Cluster ') {
             steps {
                 kubernetesDeploy(

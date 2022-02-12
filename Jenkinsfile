@@ -30,7 +30,7 @@ pipeline {
                 /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
                 bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
                 } **/
-                bat 'docker push repo'
+                bat "docker push ${repo}"
             }
         }
         

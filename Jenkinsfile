@@ -3,6 +3,7 @@ pipeline {
        repo = "subhasishpaul/python"
        ver = "${env.BUILD_ID}"
        image = "${NAME}:${VERSION}"
+        test = ''
     }
 
     agent any
@@ -17,7 +18,8 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t repo + ":${env.BUILD_ID}" .'
+                bat 'docker build -t "${env.repo}" .'
+                def customImage = docker.build("my-image:${env.BUILD_ID}")
             }
         }
         

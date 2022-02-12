@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t repo .'
+                bat 'docker build -t repo + ":${env.BUILD_ID}" .'
             }
         }
         
@@ -27,7 +27,7 @@ pipeline {
                 /** withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'DOCKER_HUB_PASSWORD')]) {
                 bat 'docker login -u subhasishpaul -p ${DOCKER_HUB_PASSWORD}'
                 } **/
-                bat 'docker push subhasishpaul/python:${env.BUILD_ID}'
+                bat 'docker push repo'
             }
         }
         
